@@ -6,7 +6,7 @@
 
 | Contribution | Exact review head | Target |
 | --- | --- | --- |
-| Ghostex renderer | [c6f98a96e346](https://github.com/vespillo-tech/Ghostex/commit/c6f98a96e3466c16945b7544ad629a27c28a1b82) | `maddada/Ghostex:main` at `56a620fe8313` |
+| Ghostex renderer | [57a756dee3e8](https://github.com/vespillo-tech/Ghostex/commit/57a756dee3e84114f2e95d6c11ac03895b87950a) | `maddada/Ghostex:main` at `56a620fe8313` |
 | zmx replay and optional grid coordination | [c630130eb7aa](https://github.com/vespillo-tech/zmx/commit/c630130eb7aa007407d6f63d0c77932009798e16) | `maddada/zmx:nightly` at `feaefff98723` |
 
 ## Review order
@@ -25,8 +25,8 @@ The archive uses a public allowlist, has verified CRCs and entry hashes, and exc
 
 ## Publication status
 
-Both drafts are mergeable with exact reviewed heads and file lists. Manual CodeRabbit reviewed both drafts: zmx returned no actionable comments; the renderer's two reproduced findings were corrected. Renderer re-review is requested. Macroscope skipped draft correctness review; no maintainer approval is claimed. Ghostex storage-access passed. A later upstream main commit adds Windows server launch warnings without overlapping the feature. The release gate remains the exact reviewed zmx dependency pin and focused integration checks.
+Both drafts are mergeable with exact reviewed heads and file lists. Manual CodeRabbit reviewed both drafts: zmx returned no actionable comments; the renderer's two reproduced findings were corrected. Renderer follow-up completed with no new actionable comments, but skipped all three correction files as similar. Actual Claude and local/native checks cover the corrected Rust. Its default docstring advisory is disclosed in the report. Macroscope skipped draft correctness review; no maintainer approval is claimed. Ghostex storage-access passed. A later upstream main commit adds Windows server launch warnings without overlapping the feature. The release gate remains the exact reviewed zmx dependency pin and focused integration checks.
 
 ## Renderer review correction
 
-The current head adds a three-file correction for placeholder cursor glyphs and aggregate upload-cache admission (64 MiB padded buffers/256 generations per view). Fifteen production-function checks and desktop/web compilation passed. Actual Opus 5.5 `xhigh` review found no blocking issues; Help wording was clarified afterward. Read `evidence/coderabbit-followup/checked-review-report.txt` for failing controls, exact limits and probe scope. This upload-cache budget is not a total-process or GPU-memory cap. Earlier native acceptance was not repeated for this delta.
+The current head adds a three-file correction for placeholder cursor glyphs and aggregate upload-cache admission (64 MiB padded buffers/256 generations per view). Fifteen production-function checks and desktop/web compilation passed. Actual Opus 5.5 `xhigh` review found no blocking issues; Help wording was clarified afterward. Read `evidence/coderabbit-followup/checked-review-report.txt` for failing controls, exact limits and probe scope. This upload-cache budget is not a total-process or GPU-memory cap. A fresh targeted native follow-up passed the 256-generation omission/recovery case and displayed a placeholder without a cursor glyph overlay. Focused cursor semantics remain covered by the production-function probe. The library source-storage default is 10,000,000 bytes/screen; the synthetic cache byte-boundary probe is not evidence that five large RGBA assets coexist under that default. Temporary lab overrides were restored and the installed main app remained healthy. Read the included native observation and storage-limit receipts; broader UI/platform gaps remain as stated.
