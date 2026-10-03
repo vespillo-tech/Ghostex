@@ -1,5 +1,7 @@
 # Static Kitty image review evidence
 
+**Linked drafts:** [Ghostex #186](https://github.com/maddada/Ghostex/pull/186) and [zmx #3](https://github.com/maddada/zmx/pull/3).
+
 [Download the public review package](static-images-pr-review.zip?raw=true). It contains portable fixtures and probes, patches, full validation logs, implementation review maps, checked Claude findings, resource limits and known gaps.
 
 | Contribution | Exact review head | Target |
@@ -20,3 +22,7 @@ Apple Silicon macOS runtime acceptance covers ordinary and Unicode-placeholder s
 This is bounded static image support. Full animation/identity restoration, browser rendering and native Windows retained state remain separate work. Linux/Windows/Intel runtime acceptance, CJK preedit and deliberate link hover are unverified. Existing mixed-mode history widths and partial-UTF-8-before-Init issues are documented. Aggregate memory and power are unmeasured. See the report for exact resource limits and exclusions.
 
 The archive uses a public allowlist, has verified CRCs and entry hashes, and excludes private inventories, auth, profiles, raw Claude outputs, caches and binaries. This documentation branch contains no application changes or workflows.
+
+## Publication status
+
+Both drafts are mergeable with exact reviewed heads and file lists. CodeRabbit explicitly skipped automatic draft review, and Macroscope reported SKIPPED; no bot code approval is claimed. Ghostex storage-access passed. A later upstream main commit adds Windows server launch warnings without overlapping the feature. The release gate remains the exact reviewed zmx dependency pin and focused integration checks.
