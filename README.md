@@ -1,12 +1,25 @@
 # Static Kitty image review evidence
 
+## Independent audit correction — 2026-10-04
+
+Current renderer review head: [`fc538d1a2a2f`](https://github.com/vespillo-tech/Ghostex/commit/fc538d1a2a2fc190dd9725eb9782086fa51a25ed); **28 files total**, seven-file audit correction after `4e58bf74`. zmx remains `ff399831` with no executable changes in this audit.
+
+- Resolve image offsets with Ghostty's current cell dimensions after font/pixel resizes.
+- Accept valid RGBA16 PNGs whose encoded bytes exceed the final RGBA8 size. Encoded input is independently capped at **40 MiB**, allowing encoding overhead; decode allocation stays 32 MiB, final pixels stay 16 MiB/4 Mi pixels, and default source storage stays 10,000,000 bytes.
+- Render ordinary relative descendants of Unicode placeholder images using Ghostty's parent-chain, minimum visible-origin, crop and layer rules. This concerns live rendering; relative **replay remains excluded**.
+- Register the result type in the native ABI metadata. C headers, Rust layouts and actual compiled descriptors agree (64-byte render info, 80-byte placeholder/descendant result). App and embedded library must be rebuilt together, as the normal Cargo build does.
+
+All three defects reproduce on archived published source and pass on final source. Additional native cases cover nested chains, signed edges, culling, parent absence/deletion, own z layers and PNG compression variants. The full-pixel PNG overhead fixture raises source storage only in a disposable terminal. Text error recovery, owned admission, 15 upload/cursor checks and 70,797 parser boundary cases pass. Locked optimized desktop and shared wasm compilation pass with unchanged warning counts. Actual Claude Code Opus 5.5, CLI `--effort xhigh`, reviewed the fixes and final refinements; no blocking findings remain. The later one-line descriptor registration was independently compiled and checked.
+
+Read `evidence/final-audit/AUDIT-REPORT.txt` in the public archive for exact provenance, process corrections and remaining verification gaps. Earlier sections and logs retain their historical scope. Latest upstream main `c5001c48` accepts the complete current patch; its combined tree is not newly built or launched. Both image PRs remain drafts pending upstream zmx landing, the exact pin and focused combined checks. No new whole-window acceptance or Linux/Windows/Intel/SSH forwarding acceptance is claimed. Detailed bot review does not cover this correction.
+
 **Linked drafts:** [Ghostex #186](https://github.com/maddada/Ghostex/pull/186) and [zmx #3](https://github.com/maddada/zmx/pull/3).
 
 [Download the public review package](static-images-pr-review.zip?raw=true). It contains portable fixtures and probes, patches, full validation logs, implementation review maps, checked Claude findings, resource limits and known gaps.
 
 | Contribution | Exact review head | Target |
 | --- | --- | --- |
-| Ghostex renderer | [4e58bf74a2a8](https://github.com/vespillo-tech/Ghostex/commit/4e58bf74a2a8bf063eb60911e4fd22da02f58b13) | `maddada/Ghostex:main` at `56a620fe8313` |
+| Ghostex renderer | [fc538d1a2a2f](https://github.com/vespillo-tech/Ghostex/commit/fc538d1a2a2fc190dd9725eb9782086fa51a25ed) | `maddada/Ghostex:main` at `56a620fe8313` |
 | zmx replay and optional grid coordination | [ff399831abdc](https://github.com/vespillo-tech/zmx/commit/ff399831abdc33e55c9841d324ff3bc70cfd7115) | `maddada/zmx:nightly` at `feaefff98723` |
 
 ## Review order
